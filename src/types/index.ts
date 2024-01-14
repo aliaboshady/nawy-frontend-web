@@ -1,17 +1,17 @@
 export interface Apartment {
-  apartmentID: number;
-  title: string;
-  description: string;
-  address: string;
-  price: number;
-  size: number;
-  countBeds: number;
-  countToilets: number;
-  images?: ApartmentImage[];
+  ApartmentID: number;
+  Title: string;
+  Description: string;
+  Address: string;
+  Price: number;
+  Size: number;
+  CountBeds: number;
+  CountToilets: number;
+  Images?: ApartmentImage[];
 }
 
 export interface ApartmentImage {
-  imageID: number;
-  apartmentID: number;
-  imagePath: string;
+  ImageID: number;
+  ApartmentID: number;
+  ImagePath: string;
 }

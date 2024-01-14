@@ -1,5 +1,5 @@
 {
-  "name": "nawy-technical-task",
+  "name": "nawy",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,10 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "axios": "^1.6.5",
-    "express": "^4.18.2",
     "format-number": "^3.0.0",
-    "mssql": "^10.0.1",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18"

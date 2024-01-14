@@ -21,15 +21,15 @@ export default function ApartmentCard({ apartment }: ApartmentCardProps) {
 
       <div className="mx-4 my-3">
         <div className="w-full font-semibold text-gray-800">
-          {apartment.title}
+          {apartment.Title}
         </div>
-        <div className="w-full text-xs text-gray-500">{apartment.address}</div>
+        <div className="w-full text-xs text-gray-500">{apartment.Address}</div>
 
         <div className="relative my-3 w-44 flex justify-between">
           <div className="relative">
             <Image src="/bed.png" alt="" width={30} height={30} unoptimized />
             <div className="absolute top-0 left-0 text-xs">
-              {apartment.countBeds}
+              {apartment.CountBeds}
             </div>
           </div>
 
@@ -42,7 +42,7 @@ export default function ApartmentCard({ apartment }: ApartmentCardProps) {
               unoptimized
             />
             <div className="absolute top-0 left-0 text-xs">
-              {apartment.countToilets}
+              {apartment.CountToilets}
             </div>
           </div>
 
@@ -50,13 +50,13 @@ export default function ApartmentCard({ apartment }: ApartmentCardProps) {
             <p className="mr-2 text-gray-200 text-xl">|</p>
             <Image src="/size.png" alt="" width={20} height={20} unoptimized />
             <p className="ml-2">
-              {apartment.size} m<sup className="align-top top-2">2</sup>
+              {apartment.Size} m<sup className="align-top top-2">2</sup>
             </p>
           </div>
         </div>
 
         <p className="text-lg font-bold text-gray-000">
-          {formatAsCurrency(apartment.price)} EGP
+          {formatAsCurrency(apartment.Price)} EGP
         </p>
       </div>
     </div>
