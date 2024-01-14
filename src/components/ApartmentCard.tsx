@@ -1,18 +1,20 @@
 import Image from 'next/image';
 import { Apartment } from '@types';
-import { formatAsCurrency } from '@utils/helpers';
+import { formatAsCurrency, binaryImageToURL } from '@utils/helpers';
 
 interface ApartmentCardProps {
   apartment: Apartment;
 }
 
 export default function ApartmentCard({ apartment }: ApartmentCardProps) {
+  const imageURL = binaryImageToURL(apartment.Image);
+
   return (
     <div className="w-96 h-fit mx-5 border rounded-md border-gray-200">
       <div className="relative w-full h-64 rounded-t-md bg-gray-200 overflow-hidden">
         <Image
           className="hover:scale-125 transition-all duration-1000"
-          src="/house.jpg"
+          src={imageURL}
           alt=""
           fill
           objectFit="contain"

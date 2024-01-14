@@ -1,5 +1,4 @@
 'use client';
-
 import ApartmentCard from '@components/ApartmentCard';
 import { useEffect, useState } from 'react';
 import { Apartment } from '@types';
