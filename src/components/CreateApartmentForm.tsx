@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 export default function CreateApartmentForm() {
-  const API_CreateApartments = 'http://localhost:5000/apartment/create';
+  const API_CreateApartments = 'http://localhost:5000/apartment';
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

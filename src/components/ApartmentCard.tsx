@@ -57,7 +57,7 @@ export default function ApartmentCard({ apartment }: ApartmentCardProps) {
           </div>
         </div>
 
-        <p className="text-lg font-bold text-gray-000">
+        <p className="text-lg font-bold text-gray-900">
           {formatAsCurrency(apartment.Price)} EGP
         </p>
       </div>
