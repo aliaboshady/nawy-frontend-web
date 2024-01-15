@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Apartment } from '@types';
 import { formatAsCurrency, binaryImageToURL } from '@utils/helpers';
+import Link from 'next/link';
 
 interface ApartmentCardProps {
   apartment: Apartment;
@@ -10,7 +11,10 @@ export default function ApartmentCard({ apartment }: ApartmentCardProps) {
   const imageURL = binaryImageToURL(apartment.Image);
 
   return (
-    <div className="w-96 h-fit mx-5 border rounded-md border-gray-200">
+    <Link
+      href={`/ApartmentDetails/${apartment.ApartmentID}`}
+      className="w-96 h-fit mx-5 border rounded-md border-gray-200 bg-white"
+    >
       <div className="relative w-full h-64 rounded-t-md bg-gray-200 overflow-hidden">
         <Image
           className="hover:scale-125 transition-all duration-1000"
@@ -61,6 +65,6 @@ export default function ApartmentCard({ apartment }: ApartmentCardProps) {
           {formatAsCurrency(apartment.Price)} EGP
         </p>
       </div>
-    </div>
+    </Link>
   );
 }
