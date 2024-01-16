@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { Apartment } from '@types';
+import { Apartment, ApartmentImage } from '@types';
 import { useEffect, useState } from 'react';
 import { binaryImageToURL, formatAsCurrency } from '@utils/helpers';
 import { ClipLoader } from 'react-spinners';
@@ -11,15 +11,26 @@ export default function ApartmentDetails({
   params: { id: string };
 }) {
   const API_Apartments = `http://localhost:5000/apartment/${params.id}`;
+  const API_ApartmentsImages = `http://localhost:5000/apartment/images/${params.id}`;
+
   const [apartment, setApartment] = useState<Apartment | undefined>();
+  const [apartmentImages, setApartmentImages] = useState<
+    ApartmentImage[] | undefined
+  >();
+  const [imageIndex, setImageIndex] = useState(0);
 
   async function fetchData() {
     try {
-      const response = await fetch(API_Apartments);
+      const responseApartmentDetails = await fetch(API_Apartments);
+      const responseApartmentImages = await fetch(API_ApartmentsImages);
 
-      if (response.ok) {
-        const data: Apartment[] = await response.json();
-        setApartment(data[0]);
+      if (responseApartmentDetails.ok && responseApartmentImages.ok) {
+        const dataDetails: Apartment[] = await responseApartmentDetails.json();
+        const dataImages: ApartmentImage[] =
+          await responseApartmentImages.json();
+
+        setApartment(dataDetails[0]);
+        setApartmentImages(dataImages);
       } else {
         throw new Error('Failed to fetch data');
       }
@@ -32,6 +43,24 @@ export default function ApartmentDetails({
     fetchData();
   }, []);
 
+  function changeImage(next: boolean) {
+    if (!apartmentImages) return;
+
+    if (next) {
+      if (imageIndex < apartmentImages?.length - 1) {
+        setImageIndex(imageIndex + 1);
+      } else {
+        setImageIndex(0);
+      }
+    } else {
+      if (imageIndex > 0) {
+        setImageIndex(imageIndex - 1);
+      } else {
+        setImageIndex(apartmentImages?.length - 1);
+      }
+    }
+  }
+
   return (
     <div className="flex justify-center">
       {!apartment ? (
@@ -40,14 +69,48 @@ export default function ApartmentDetails({
         </div>
       ) : (
         <div className="w-full h-fit mx-40 my-10 border rounded-md border-gray-200 bg-white">
-          <div className="relative w-full h-[30rem] rounded-t-md bg-gray-200 overflow-hidden">
-            <Image
-              className="hover:scale-125 transition-all duration-1000"
-              src={binaryImageToURL(apartment.Image)}
-              alt=""
-              fill
-              objectFit="contain"
-            />
+          <div className="flex flex-row justify-between relative w-full h-[30rem] rounded-t-md bg-gray-200 overflow-hidden">
+            {apartmentImages && apartmentImages.length > 1 ? (
+              <button
+                className="group pr-16 pl-5 z-10"
+                onClick={() => changeImage(false)}
+              >
+                <Image
+                  className="group-hover:-translate-x-2 group-hover:opacity-100 rotate-180 opacity-70 transition-all duration-300"
+                  src={'/next.png'}
+                  alt=""
+                  width={40}
+                  height={40}
+                  objectFit="contain"
+                />
+              </button>
+            ) : null}
+
+            {apartmentImages && apartmentImages.length > 0 ? (
+              <Image
+                className="hover:scale-125 transition-all duration-1000"
+                src={binaryImageToURL(apartmentImages[imageIndex].Image)}
+                alt=""
+                fill
+                objectFit="contain"
+              />
+            ) : null}
+
+            {apartmentImages && apartmentImages.length > 1 ? (
+              <button
+                className="group pr-5 pl-16 z-10"
+                onClick={() => changeImage(true)}
+              >
+                <Image
+                  className="group-hover:translate-x-2 group-hover:opacity-100 opacity-70 transition-all duration-300"
+                  src={'/next.png'}
+                  alt=""
+                  width={40}
+                  height={40}
+                  objectFit="contain"
+                />
+              </button>
+            ) : null}
           </div>
 
           <div className="mx-4 my-3">
